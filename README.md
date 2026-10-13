@@ -10,7 +10,7 @@ My team built the original SafePlaceScan at the SJSU Cybersecurity & AI Hackatho
 
 This repo is my rebuild of the project from scratch, without the Jetson requirement, so it runs on any machine and in the browser. The core idea is the same: no single public dataset covers all four hazards, so the work is in merging several messy datasets into one consistent training set.
 
-Original team: _add teammates_
+Original team: Maya and Sanjana
 
 ## How it works
 
