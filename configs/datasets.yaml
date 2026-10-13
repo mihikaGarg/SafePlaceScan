@@ -1,35 +1,33 @@
 # Unified classes. Order = class IDs in the merged dataset.
 classes: [pothole, trash, graffiti, tent]
 
-# Each source is a YOLO-format dataset. Find them on Roboflow Universe
-# (universe.roboflow.com): open a dataset -> Download Dataset -> YOLOv8 ->
-# "show download code", then copy workspace / project / version from the snippet.
-#
-# class_map: source class name -> unified class. Classes not listed are dropped.
-#            Use "*" to send every class in that source to one unified class
-#            (handy for TACO, which has ~60 trash sub-categories).
-# max_images: cap per source so one big dataset doesn't drown out the others.
-#
-# No Roboflow? Delete the roboflow line and drop a YOLO-format folder
-# (with data.yaml) at data/raw/<name>/ instead.
+# Each source is a Roboflow Universe dataset, downloaded in YOLOv8 format.
+# class_map: source class name -> unified class. Unlisted classes are dropped.
+# "*" sends every class in that source to one unified class.
+# max_images: cap per source so one dataset doesn't dominate.
 
 sources:
+  # TACO: litter in the wild, ~60 trash sub-categories, polygon labels
   - name: trash
-    roboflow: {workspace: "CHANGE_ME", project: "CHANGE_ME", version: 1}
+    roboflow: {workspace: "narwhal", project: "taco-trash-annotations-in-context-vpdro", version: 4}
     class_map: {"*": trash}
     max_images: 1500
 
   - name: road_damage
-    roboflow: {workspace: "CHANGE_ME", project: "CHANGE_ME", version: 1}
-    class_map: {pothole: pothole}
+    roboflow: {workspace: "itech-area", project: "pothole-ndjrq", version: 1}
+    class_map: {"*": pothole}
     max_images: 1500
 
+  # Also labels "Efflorescence" (wall stains), which gets dropped
   - name: graffiti
-    roboflow: {workspace: "CHANGE_ME", project: "CHANGE_ME", version: 1}
-    class_map: {"*": graffiti}
+    roboflow: {workspace: "valentijn", project: "graffiti-nmltp", version: 1}
+    class_map: {Graffiti: graffiti, graffiti: graffiti}
     max_images: 1500
 
   - name: tents
-    roboflow: {workspace: "CHANGE_ME", project: "CHANGE_ME", version: 1}
+    roboflow: {workspace: "traininggaebo", project: "tent-model", version: 1}
     class_map: {"*": tent}
-    max_images: 1500
+
+  # - name: tents_homeless
+  #   roboflow: {workspace: "homeless", project: "CHANGE_ME", version: 1}
+  #   class_map: {"*": tent}
