@@ -1,0 +1,35 @@
+# Unified classes. Order = class IDs in the merged dataset.
+classes: [pothole, trash, graffiti, tent]
+
+# Each source is a YOLO-format dataset. Find them on Roboflow Universe
+# (universe.roboflow.com): open a dataset -> Download Dataset -> YOLOv8 ->
+# "show download code", then copy workspace / project / version from the snippet.
+#
+# class_map: source class name -> unified class. Classes not listed are dropped.
+#            Use "*" to send every class in that source to one unified class
+#            (handy for TACO, which has ~60 trash sub-categories).
+# max_images: cap per source so one big dataset doesn't drown out the others.
+#
+# No Roboflow? Delete the roboflow line and drop a YOLO-format folder
+# (with data.yaml) at data/raw/<name>/ instead.
+
+sources:
+  - name: trash
+    roboflow: {workspace: "CHANGE_ME", project: "CHANGE_ME", version: 1}
+    class_map: {"*": trash}
+    max_images: 1500
+
+  - name: road_damage
+    roboflow: {workspace: "CHANGE_ME", project: "CHANGE_ME", version: 1}
+    class_map: {pothole: pothole}
+    max_images: 1500
+
+  - name: graffiti
+    roboflow: {workspace: "CHANGE_ME", project: "CHANGE_ME", version: 1}
+    class_map: {"*": graffiti}
+    max_images: 1500
+
+  - name: tents
+    roboflow: {workspace: "CHANGE_ME", project: "CHANGE_ME", version: 1}
+    class_map: {"*": tent}
+    max_images: 1500
